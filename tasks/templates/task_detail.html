@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+ <!-- Task detail lets the user update, delete, and mark as completed the tasks of the user-->
+
+{% block content %}
+
+<main class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h1 class="text-secondary">{{task.title}}</h1>
+
+            {{error}}
+            <!--updates the task-->
+            <form method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button class="btn btn-dark">
+                    Update
+                </button>
+            </form>
+            <div class="d-flex mt-5">
+                
+                <!--completes the task-->
+                <form action="{% url 'complete_task' task.id %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-dark">
+                        Complete
+                    </button>
+                </form>
+                <!--deletes the task-->
+                <form action="{% url 'delete_task' task.id %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-danger">
+                        Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
